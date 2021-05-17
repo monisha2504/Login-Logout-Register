@@ -1,18 +1,15 @@
 package com.cg.loginlogoutregister.servicetest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.api.function.Executable;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -22,8 +19,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.cg.loginlogoutregister.entity.User;
 import com.cg.loginlogoutregister.repository.IUserRepository;
 import com.cg.loginlogoutregister.service.UserServiceImpl;
-
-
 
 @ExtendWith(SpringExtension.class)
 public class RegisterApplicationMockitoTest {

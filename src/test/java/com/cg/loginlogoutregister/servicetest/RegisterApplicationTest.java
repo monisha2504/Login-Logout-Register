@@ -4,21 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.cg.loginlogoutregister.entity.User;
 import com.cg.loginlogoutregister.repository.IUserRepository;
 import com.cg.loginlogoutregister.service.IUserService;
-
-
 
 @SpringBootTest
 public class RegisterApplicationTest {
@@ -40,7 +32,6 @@ public class RegisterApplicationTest {
 	}
 
 	@Test
-
 	void findUserByUserId() throws Exception {
 		User user = getMockUser();
 		regservice.save(user);
@@ -50,7 +41,6 @@ public class RegisterApplicationTest {
 	}
 
 	@Test
-
 	void findAllUsers() throws Exception {
 		List<User> userlist = regservice.getAllUsers();
 		User user = getMockUser();
@@ -61,7 +51,6 @@ public class RegisterApplicationTest {
 	}
 
 	@Test
-
 	void updateUser() throws Exception {
 		User user = new User();
 		user.setUserid("Monisha");
@@ -76,18 +65,10 @@ public class RegisterApplicationTest {
 	}
 
 	@Test
-
 	void deleteUserByUserId() throws Exception {
-		User user = new User();
-		user.setUserid("MonishaS");
-		user.setFirstname("Monisha");
-		user.setLastname("sekar");
-		user.setEmail("monishasekar25@yaho.com");
-		user.setPassword("M0n1");
-		user.setMobile_no("9962440531");
-		regservice.save(user);
-		User temp = regservice.deleteUserByUserId("MonishaS");
-		assertEquals(user.toString(), temp.toString());
+		User user = regservice.deleteUserByUserId("mosekar");
+		assertEquals("mosekar", user.getUserid());
+
 	}
 
 }
