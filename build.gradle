@@ -10,15 +10,14 @@ plugins {
 group = 'com.cg.spring'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
-// eclipse plugin
-apply plugin: 'eclipse'
-apply plugin: 'org.sonarqube'
 
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
+apply plugin: 'eclipse'
+apply plugin: 'org.sonarqube'
 
 repositories {
 	mavenCentral()
@@ -46,3 +45,4 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+

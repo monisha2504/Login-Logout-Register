@@ -13,7 +13,7 @@ public class LoginController {
 
 	@Autowired
 	ILoginService loginService;
-
+	
 	// login service
 	@PostMapping("/login")
 	public String Login(@RequestBody Login user) throws Exception {

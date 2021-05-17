@@ -1,8 +1,8 @@
 package com.cg.loginlogoutregister.service;
 
-import com.cg.loginlogoutregister.entity.Logout;
+import com.cg.loginlogoutregister.entity.Login;
 
 public interface ILogoutService {
 
-	String logout(Logout user );
+	String logout(Login user ) throws Exception;
 }

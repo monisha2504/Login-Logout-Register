@@ -22,5 +22,5 @@ public class Login {
 	private int id;
 	private String userId;
 	private String password;
-
+    private boolean isLoggedIn = false;
 }
