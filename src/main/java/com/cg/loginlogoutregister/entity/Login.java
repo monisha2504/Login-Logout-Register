@@ -17,9 +17,9 @@ import lombok.ToString;
 @Table(name = "login")
 public class Login {
 
-	@Id
 	@GeneratedValue
 	private int id;
+	@Id
 	private String userId;
 	private String password;
     private boolean isLoggedIn = false;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.loginlogoutregister.entity.Login;
 @Repository
-public interface ILoginRepository extends JpaRepository<Login, Integer> {
+public interface ILoginRepository extends JpaRepository<Login, String> {
 
 
 }

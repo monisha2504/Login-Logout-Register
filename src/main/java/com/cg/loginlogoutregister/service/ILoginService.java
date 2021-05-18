@@ -6,6 +6,6 @@ public interface ILoginService {
 	
 	String login(Login user) throws Exception;
 
-	
+	String logout(String userId)throws Exception;
 
 }

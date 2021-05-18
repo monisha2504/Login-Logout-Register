@@ -1,12 +1,10 @@
 package com.cg.loginlogoutregister.servicetest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -26,87 +24,80 @@ class LoginServiceTest {
 	//validate login with valid userId and password
 
 	@Test
-	void testValidateLoginWithValidUserIdAndPassword() {
+	void testValidateLoginWithValidUserIdAndPassword() throws Exception {
 		Login user = new Login();
-		user.setId(1);
 		user.setUserId("admin");
 		user.setPassword("admin@1234");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
+		loginService.login(user);
+		Login dbUsr = loginRepo.findById(user.getUserId()).get();
 		assertEquals(user.getUserId(), dbUsr.getUserId());
 		assertEquals(user.getPassword(), dbUsr.getPassword());	    
 		}
 
 	//validate login with invalid userId and password
 	@Test
-	void testValidateLoginWithInvalidUserIdAndPassword() {
+	void testValidateLoginWithInvalidUserIdAndPassword() throws Throwable {
 		Login user = new Login();
-		user.setId(1);
 		user.setUserId("riya");
 		user.setPassword("min@1234");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertNotEquals(user.getUserId(), dbUsr.getUserId());
-		assertNotEquals(user.getPassword(), dbUsr.getPassword());
+		assertThrows(Exception.class, new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				loginService.login(user);
+				
+			}
+		});
 	}
 
       
 	//validate login with valid userId and  invalid password
 	@Test
-	void testValidateLoginWithValidUserIdAndInvalidPassword() {
+	void testValidateLoginWithValidUserIdAndInvalidPassword() throws Exception {
 		Login user = new Login();
-		user.setId(1);
 		user.setUserId("admin");
 		user.setPassword("riya@342");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertEquals(user.getUserId(), dbUsr.getUserId());
-		assertNotEquals(user.getPassword(), dbUsr.getPassword());
+        assertThrows(Exception.class, new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				loginService.login(user);
+				
+			}
+		});
+		
 	}
 	//validate login with invalid userId and valid password
 	@Test
-	void testValidateLoginWithInvalidUserIdAndValidPassword() {
+	void testValidateLoginWithInvalidUserIdAndValidPassword() throws Exception {
 		Login user = new Login();
-		user.setId(1);
 		user.setUserId("mini");
 		user.setPassword("admin@1234");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertNotEquals(user.getUserId(), dbUsr.getUserId());
-		assertEquals(user.getPassword(), dbUsr.getPassword());
-	}
-	//validate login without userId and password
-	@Test
-	void testValidateLoginWithoutUserIdAndPassword() {
-		Login user = new Login();
-		user.setId(1);
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertNull(user.getUserId(), dbUsr.getUserId());
-		assertNull(user.getPassword(), dbUsr.getPassword());
-	}
-	//validate login with valid userId and without password
-	@Test
-	void testValidateLoginWithValidUserIdAndWithoutPassword() {
-		Login user = new Login();
-		user.setId(1);
-		user.setUserId("admin");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertEquals(user.getUserId(), dbUsr.getUserId());
-		assertNull(user.getPassword(), dbUsr.getPassword());
+		assertThrows(Exception.class, new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				loginService.login(user);
+				
+			}
+		});	
 	}
 	
-	//validate login without userId and with password
+	//validate login with valid userId and without password
 	@Test
-	void testValidateLoginWithoutUserIdAndWithPassword() {
+	void testValidateLoginWithValidUserIdAndWithoutPassword() throws Exception {
 		Login user = new Login();
-		user.setId(1);
-		user.setPassword("admin@1234");
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		Login dbUsr = opt.get();
-		assertNull(user.getUserId(), dbUsr.getUserId());
-		assertEquals(user.getPassword(), dbUsr.getPassword());
+		user.setUserId("admin");
+		assertThrows(Exception.class, new Executable() {
+			
+			@Override
+			public void execute() throws Throwable {
+				loginService.login(user);
+				
+			}
+		});
 	}
+	
+	
 
 }
