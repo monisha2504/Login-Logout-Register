@@ -28,13 +28,5 @@ public class UserExceptionHandler {
 		error.setTimestamp(System.currentTimeMillis());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
-	
-	@ExceptionHandler
-	public ResponseEntity<SuccessFactor> handleException(UserLoginException exception1 ) {
-		SuccessFactor success = new SuccessFactor();
-		success.setStatus(HttpStatus.OK.value()); 
-		success.setMessage(exception1.getMessage());
-		success.setTimestamp(System.currentTimeMillis());
-		return new ResponseEntity<>(success, HttpStatus.OK);
-	}
+
 }
