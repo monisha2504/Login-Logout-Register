@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.loginlogoutregister.entity.User;
+
+import com.cg.loginlogoutregister.entity.UserEntity;
 
 import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.service.IUserService;
@@ -27,7 +28,7 @@ public class UserController {
 //READ
 	
 	@GetMapping("/user/userid/{userid}")
-	public User findUserByUserId(@PathVariable String userid) throws Exception {
+	public UserEntity findUserByUserId(@PathVariable String userid){
 		if (regservice.findUserByUserId(userid) == null) {
 			throw new UserNotFoundException("User not found with this userid ");
 		}
@@ -35,28 +36,31 @@ public class UserController {
 	}
 
 	@GetMapping("/user/findallusers")
-	public List<User> findAllusers() {
+	public List<UserEntity> findAllusers() {
 		return regservice.getAllUsers();
 
 	}
 //WRITE
 	
 	@PostMapping("/user/save")
-	public User save(@Valid @RequestBody User register) throws Exception {
-		return regservice.save(register);
+	public UserEntity save(@Valid @RequestBody UserEntity user){
+		return regservice.createUser(user);
 	}
+
+
 //UPDATE
 	
 	@PutMapping("/user/{userid}/update")
-	public User updateUser(@PathVariable String userid,@Valid @RequestBody User register) throws Exception {
-		return regservice.updateUser(register);
+	public UserEntity updateUser(@PathVariable String userid,@Valid @RequestBody UserEntity user){
+		return regservice.updateUser(user);
+		
 	}
 //DELETE
 	
 	@DeleteMapping("/user/{userid}")
-	public User deleteUserByUserId(@PathVariable String userid) throws Exception  {
+	public UserEntity deleteUserByUserId(@PathVariable String userid){
 		if(regservice.findUserByUserId(userid)==null){
-		throw new Exception("User not found with Userid");	
+		throw new UserNotFoundException("User not found with Userid");	
 		}
 		return regservice.deleteUserByUserId(userid);
 	}

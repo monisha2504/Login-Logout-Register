@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.loginlogoutregister.entity.Login;
+import com.cg.loginlogoutregister.entity.LoginEntity;
+import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.service.ILoginService;
 
 @RestController
@@ -17,17 +18,16 @@ public class LoginController {
 	ILoginService loginService;
 	// login service
 	@PostMapping("/login")
-	public String Login(@RequestBody Login user) throws Exception {
-		if ((user.getUserId().isBlank()) || (user.getPassword().isBlank())) {
-			throw new Exception("Userid or Password in null");
+	public String Login(@RequestBody LoginEntity user) {
+		if (loginService.login(user)==null) {
+			throw new UserNotFoundException("Userid or Password in null");
 		}
 		return loginService.login(user);
 	}
     //logout service
 	@GetMapping("/logout/{userId}")
-	public String Logout( @PathVariable("userId")String userId) throws Exception  {
+	public String Logout( @PathVariable("userId")String userId){
 		return loginService.logout(userId);
 	}
-	
 
 }

@@ -21,7 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "RegisterUser")
-public class User {
+public class UserEntity {
 	//Userid Validation
 	
 	@Id
@@ -50,9 +50,9 @@ public class User {
 	
 	//Mobile no Validation 
 	@NotEmpty(message="Please Enter Your EmailId")
-	@Pattern(regexp = "^[0-9]{10}$",message="EmailId is Invalid")
-	@Size(min = 10, max = 10, message = "Mobile_no less than 10 is Invalid")
-	private String mobile_no;
+	@Pattern(regexp = "^[0-9]{10}$",message="Mobile Number is Invalid")
+	@Size(min = 10, max = 10, message = "Mobile Number less than 10 is Invalid")
+	private String mobileNumber;
 	
 	//EmailId Validation
 	@Email

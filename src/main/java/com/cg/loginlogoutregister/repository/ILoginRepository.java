@@ -3,9 +3,9 @@ package com.cg.loginlogoutregister.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cg.loginlogoutregister.entity.Login;
+import com.cg.loginlogoutregister.entity.LoginEntity;
 @Repository
-public interface ILoginRepository extends JpaRepository<Login, String> {
+public interface ILoginRepository extends JpaRepository<LoginEntity, String> {
 
 
 }

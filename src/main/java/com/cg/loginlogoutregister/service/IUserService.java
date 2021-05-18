@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.cg.loginlogoutregister.entity.User;
+import com.cg.loginlogoutregister.entity.UserEntity;
 
 @Service
 public interface IUserService {
-	public User findUserByUserId(String userid) throws Exception;
+	public UserEntity findUserByUserId(String userid);
 
-	public List<User> getAllUsers();
+	public List<UserEntity> getAllUsers();
 
-	public User save(User user) throws Exception;
+	public UserEntity createUser(UserEntity user);
 
-	public User updateUser(User user) throws Exception;
+	public UserEntity updateUser(UserEntity user);
 
-	public User deleteUserByUserId(String userid);
+	public UserEntity deleteUserByUserId(String userid);
 
 }

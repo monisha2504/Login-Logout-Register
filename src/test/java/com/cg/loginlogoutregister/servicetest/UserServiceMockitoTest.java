@@ -16,7 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.cg.loginlogoutregister.entity.User;
+import com.cg.loginlogoutregister.entity.UserEntity;
+import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.repository.IUserRepository;
 import com.cg.loginlogoutregister.service.UserServiceImpl;
 
@@ -34,66 +35,66 @@ public class UserServiceMockitoTest {
 
 	@Test
 
-	void findUserByUserId() throws Exception {
-		User user = new User();
+	void findUserByUserId() throws UserNotFoundException {
+		UserEntity user = new UserEntity();
 		user.setUserid("apple");
 		user.setFirstname("firstname");
 		user.setLastname("Lastname");
 		user.setEmail("monishasekar353@gmail.com");
 		user.setPassword("M0n1");
-		user.setMobile_no("9840128654");
+		user.setMobileNumber("9840128654");
 		Mockito.when(regRepo.findById("apple")).thenReturn(Optional.of(user));
-		User user1 = regservice.findUserByUserId("apple");
+		UserEntity user1 = regservice.findUserByUserId("apple");
 		assertEquals(user.toString(), user1.toString());
 
 	}
 
 	@Test
 
-	void findAllUsers() throws Exception {
-		User user = new User();
+	void findAllUsers() throws UserNotFoundException {
+		UserEntity user = new UserEntity();
 		user.setUserid("mango");
 		user.setFirstname("firstname");
 		user.setLastname("Lastname");
 		user.setEmail("monishasekar353@gmail.com");
 		user.setPassword("M0n1");
-		user.setMobile_no("9840128654");
-		List<User> userlist = new ArrayList<>();
+		user.setMobileNumber("9840128654");
+		List<UserEntity> userlist = new ArrayList<>();
 		userlist.add(user);
 		Mockito.when(regRepo.findAll()).thenReturn(userlist);
-		List<User> userlist1 = regservice.getAllUsers();
+		List<UserEntity> userlist1 = regservice.getAllUsers();
 		assertEquals(userlist1.size(), userlist.size());
 
 	}
 
 	@Test
 
-	void updateUser() throws Exception {
-		User user = new User();
+	void updateUser() throws UserNotFoundException {
+		UserEntity user = new UserEntity();
 		user.setUserid("useridd");
 		user.setFirstname("newFirstname");
 		user.setLastname("newLastname");
 		user.setEmail("monishasekar25@gmail.com");
 		user.setPassword("M0n1");
-		user.setMobile_no("9962440531");
+		user.setMobileNumber("9962440531");
 		Mockito.when(regRepo.findById("useridd")).thenReturn(Optional.of(user));
 		Mockito.when(regRepo.save(user)).thenReturn(user);
-		User temp = regservice.updateUser(user);
+		UserEntity temp = regservice.updateUser(user);
 		assertEquals(user.toString(), temp.toString());
 	}
 
 	@Test
 
-	void deleteUserByUserId() throws Exception {
-		User user = new User();
+	void deleteUserByUserId() throws UserNotFoundException {
+		UserEntity user = new UserEntity();
 		user.setUserid("useridd");
 		user.setFirstname("newFirstname");
 		user.setLastname("newLastname");
 		user.setEmail("monishasekar25@gmail.com");
 		user.setPassword("M0n1");
-		user.setMobile_no("9962440531");
+		user.setMobileNumber("9962440531");
 		Mockito.when(regRepo.findById("useridd")).thenReturn(Optional.of(user));
-		User temp = regservice.deleteUserByUserId("useridd");
+		UserEntity temp = regservice.deleteUserByUserId("useridd");
 		assertEquals(user.toString(), temp.toString());
 
 	}

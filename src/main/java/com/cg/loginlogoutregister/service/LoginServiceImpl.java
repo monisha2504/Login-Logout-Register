@@ -1,9 +1,12 @@
 package com.cg.loginlogoutregister.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.loginlogoutregister.entity.Login;
+import com.cg.loginlogoutregister.entity.LoginEntity;
+import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.repository.ILoginRepository;
 
 @Service
@@ -15,13 +18,17 @@ public class LoginServiceImpl implements ILoginService {
 
 
 	@Override
-	public String login(Login user) throws Exception {
+	public String login(LoginEntity user){
 		
-		Login dbUsr = loginRepo.findById(user.getUserId()).get();
+		Optional<LoginEntity> userfield = loginRepo.findById(user.getUserId());
+		LoginEntity dbUsr=null;
+		if (userfield.isPresent()) {
+			dbUsr = userfield.get();
+		}
+		
+		if (dbUsr==null || !dbUsr.getUserId().equals(user.getUserId()) || !dbUsr.getPassword().equals(user.getPassword())) {
 
-		if (!dbUsr.getUserId().equals(user.getUserId()) || !dbUsr.getPassword().equals(user.getPassword())) {
-
-			throw new Exception("UserId or Password is invalid");
+			throw new UserNotFoundException("UserId or Password is invalid");
 		}
 		if(dbUsr.getUserId().equals(user.getUserId()) && dbUsr.getPassword().equals(user.getPassword())) {
           
@@ -35,15 +42,19 @@ public class LoginServiceImpl implements ILoginService {
 
 
 	@Override
-	public String logout(String userId) throws Exception {
-		Login dbUsr = loginRepo.findById(userId).get();
-		if(dbUsr.getUserId().equals(userId) && dbUsr.isLoggedIn()==true )  {
+	public String logout(String userId)  {
+		Optional<LoginEntity> userfield = loginRepo.findById(userId);
+		LoginEntity dbUsr=null;
+		if (userfield.isPresent()) {
+			dbUsr = userfield.get();
+		}
+		if(dbUsr!=null && dbUsr.getUserId().equals(userId) && dbUsr.isLoggedIn())  {
 	          
 		       dbUsr.setLoggedIn(false);
 		       loginRepo.save(dbUsr);
 		       return "logout successfully";
 			}
-			throw new Exception("User not logged in");
+			throw new UserNotFoundException("User not logged in");
 	}
 	
 	

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import com.cg.loginlogoutregister.entity.User;
+import com.cg.loginlogoutregister.entity.UserEntity;
 import com.cg.loginlogoutregister.repository.IUserRepository;
 
 @Service
@@ -17,14 +17,14 @@ public class UserServiceImpl implements IUserService {
 	IUserRepository regRepo;
 
 	@Override
-	public User save(User user) throws Exception {
+	public UserEntity createUser(UserEntity user){
 		return regRepo.save(user);
 
 	}
 
 	@Override
-	public User findUserByUserId(String userid) throws Exception {
-		Optional<User> optional = regRepo.findById(userid);
+	public UserEntity findUserByUserId(String userid) {
+		Optional<UserEntity> optional = regRepo.findById(userid);
 		if (!optional.isPresent()) {
 			return null;
 		}
@@ -33,37 +33,51 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<UserEntity> getAllUsers() {
 		return regRepo.findAll();
 	}
 
 	@Override
-	public User updateUser(User user) throws Exception {
-		User dbUser = regRepo.findById(user.getUserid()).get();
+	public UserEntity updateUser(UserEntity user) {
+		UserEntity dbUser = getUser(user);
 		if (dbUser != null) {
-			if (user.getFirstname() != null && !user.getFirstname().equals("")) {
+			if (isNullOrEmpty(dbUser.getFirstname())) {
 				dbUser.setFirstname(user.getFirstname());
 			}
-			if (user.getLastname() != null && !user.getLastname().equals("")) {
+			if (isNullOrEmpty(dbUser.getLastname())) {
 				dbUser.setLastname(user.getLastname());
 			}
-			if (user.getEmail() != null && !user.getEmail().equals("")) {
+			if (isNullOrEmpty(dbUser.getEmail())) {
 				dbUser.setEmail(user.getEmail());
 			}
-			if (user.getPassword() != null && !user.getPassword().equals("")) {
+			if (isNullOrEmpty(dbUser.getPassword())) {
 				dbUser.setPassword(user.getPassword());
 			}
-			if (user.getMobile_no() != null && !user.getMobile_no().equals("")) {
-				dbUser.setMobile_no(user.getMobile_no());
+			if (isNullOrEmpty(dbUser.getMobileNumber())) {
+				dbUser.setMobileNumber(user.getMobileNumber());
 			}
+			return regRepo.save(dbUser);
 		}
+		return null;
+		
+	}
 
-		return regRepo.save(dbUser);
+	private boolean isNullOrEmpty(String value) {
+		return value != null && !value.equals("");
+	}
+
+	private UserEntity getUser(UserEntity user) {
+		Optional<UserEntity> userfield = regRepo.findById(user.getUserid());
+		UserEntity dbUser=null;
+		if (userfield.isPresent()) {
+			dbUser = userfield.get();
+		}
+		return dbUser;
 	}
 
 	@Override
-	public User deleteUserByUserId(String userid) {
-		Optional<User> optional = regRepo.findById(userid);
+	public UserEntity deleteUserByUserId(String userid) {
+		Optional<UserEntity> optional = regRepo.findById(userid);
 		if (!optional.isPresent()) {
 			return null;
 		}
