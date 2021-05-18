@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.cg.loginlogoutregister.entity.SuccessFactor;
 import com.cg.loginlogoutregister.entity.UserErrorMessage;
 
 @ControllerAdvice
@@ -27,6 +26,5 @@ public class UserExceptionHandler {
 		error.setMessage(exception.getMessage());
 		error.setTimestamp(System.currentTimeMillis());
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-	}
-
+  }
 }
