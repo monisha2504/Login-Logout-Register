@@ -13,7 +13,7 @@ import com.cg.loginlogoutregister.repository.IUserRepository;
 import com.cg.loginlogoutregister.service.IUserService;
 
 @SpringBootTest
-public class RegisterApplicationTest {
+public class UserServiceTest {
 
 	@Autowired
 	IUserService regservice;
