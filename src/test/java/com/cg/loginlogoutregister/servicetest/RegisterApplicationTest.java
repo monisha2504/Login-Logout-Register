@@ -26,11 +26,11 @@ public class RegisterApplicationTest {
 		user.setFirstname("firstname");
 		user.setLastname("Lastname");
 		user.setEmail("monishasekar353@gmail.com");
-		user.setPassword("M0n1");
+		user.setPassword("M0n1sha04");
 		user.setMobile_no("9840128654");
 		return user;
 	}
-
+//Test READ
 	@Test
 	void findUserByUserId() throws Exception {
 		User user = getMockUser();
@@ -39,7 +39,7 @@ public class RegisterApplicationTest {
 		assertEquals(user.toString(), temp.toString());
 
 	}
-
+//Test READ
 	@Test
 	void findAllUsers() throws Exception {
 		List<User> userlist = regservice.getAllUsers();
@@ -49,7 +49,7 @@ public class RegisterApplicationTest {
 		assertEquals(userlist1.size(), userlist.size());
 
 	}
-
+//Test UPDATE
 	@Test
 	void updateUser() throws Exception {
 		User user = new User();
@@ -57,18 +57,25 @@ public class RegisterApplicationTest {
 		user.setFirstname("Monisha");
 		user.setLastname("sekar");
 		user.setEmail("monishasekar25@yaho.com");
-		user.setPassword("M0n1");
+		user.setPassword("M0n1sha07");
 		user.setMobile_no("9962440531");
 		regservice.save(user);
 		User temp = regservice.updateUser(user);
 		assertEquals(user.toString(), temp.toString());
 	}
-
+//Test DELETE
 	@Test
 	void deleteUserByUserId() throws Exception {
-		User user = regservice.deleteUserByUserId("mosekar");
-		assertEquals("mosekar", user.getUserid());
-
+		User user = new User();
+		user.setUserid("Monisha");
+		user.setFirstname("Monisha");
+		user.setLastname("sekar");
+		user.setEmail("monishasekar25@yahoo.com");
+		user.setPassword("M0n1sha07");
+		user.setMobile_no("9962440531");
+		regservice.save(user);
+		User temp=regservice.deleteUserByUserId("Monisha");
+		assertEquals(user.toString(), temp.toString());
 	}
 
 }
