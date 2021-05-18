@@ -4,8 +4,8 @@ plugins {
 	id 'java'
     id "org.sonarqube" version "2.6"
     id 'jacoco'
-
 }
+
 
 group = 'com.cg.spring'
 version = '0.0.1-SNAPSHOT'
@@ -16,8 +16,10 @@ configurations {
 		extendsFrom annotationProcessor
 	}
 }
+
 apply plugin: 'eclipse'
 apply plugin: 'org.sonarqube'
+
 
 repositories {
 	mavenCentral()
@@ -45,4 +47,7 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+project.tasks["sonarqube"].dependsOn "test"
+
 

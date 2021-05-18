@@ -6,10 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.loginlogoutregister.Validate;
+
 import com.cg.loginlogoutregister.entity.User;
 import com.cg.loginlogoutregister.repository.IUserRepository;
-
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -19,7 +18,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User save(User user) throws Exception {
-		Validate.validateUser(user);
 		return regRepo.save(user);
 
 	}
@@ -59,7 +57,7 @@ public class UserServiceImpl implements IUserService {
 				dbUser.setMobile_no(user.getMobile_no());
 			}
 		}
-		Validate.validateUser(dbUser);
+
 		return regRepo.save(dbUser);
 	}
 

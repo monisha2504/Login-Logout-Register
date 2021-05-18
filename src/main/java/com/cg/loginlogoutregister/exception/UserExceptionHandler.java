@@ -28,4 +28,5 @@ public class UserExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	
+
 }

@@ -2,6 +2,8 @@ package com.cg.loginlogoutregister.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,8 @@ import com.cg.loginlogoutregister.service.IUserService;
 public class UserController {
 	@Autowired
 	IUserService regservice;
-
+//READ
+	
 	@GetMapping("/user/userid/{userid}")
 	public User findUserByUserId(@PathVariable String userid) throws Exception {
 		if (regservice.findUserByUserId(userid) == null) {
@@ -36,19 +39,25 @@ public class UserController {
 		return regservice.getAllUsers();
 
 	}
-
+//WRITE
+	
 	@PostMapping("/user/save")
-	public User save(@RequestBody User register) throws Exception {
+	public User save(@Valid @RequestBody User register) throws Exception {
 		return regservice.save(register);
 	}
-
+//UPDATE
+	
 	@PutMapping("/user/{userid}/update")
-	public User updateUser(@PathVariable String userid, @RequestBody User register) throws Exception {
+	public User updateUser(@PathVariable String userid,@Valid @RequestBody User register) throws Exception {
 		return regservice.updateUser(register);
 	}
-
+//DELETE
+	
 	@DeleteMapping("/user/{userid}")
-	public User deleteUserByUserId(@PathVariable String userid) {
+	public User deleteUserByUserId(@PathVariable String userid) throws Exception  {
+		if(regservice.findUserByUserId(userid)==null){
+		throw new Exception("User not found with Userid");	
+		}
 		return regservice.deleteUserByUserId(userid);
 	}
 }
