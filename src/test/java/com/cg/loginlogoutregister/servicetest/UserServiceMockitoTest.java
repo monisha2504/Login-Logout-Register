@@ -21,7 +21,7 @@ import com.cg.loginlogoutregister.repository.IUserRepository;
 import com.cg.loginlogoutregister.service.UserServiceImpl;
 
 @ExtendWith(SpringExtension.class)
-public class RegisterApplicationMockitoTest {
+public class UserServiceMockitoTest {
 	@InjectMocks
 	UserServiceImpl regservice;
 	@MockBean

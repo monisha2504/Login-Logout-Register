@@ -1,7 +1,5 @@
 package com.cg.loginlogoutregister.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +16,8 @@ public class LoginServiceImpl implements ILoginService {
 
 	@Override
 	public String login(Login user) throws Exception {
-		Optional<Login> opt = loginRepo.findById(user.getId());
-		if (!opt.isPresent()) {
-			return "Id is not found";
-		}
-		Login dbUsr = opt.get();
+		
+		Login dbUsr = loginRepo.findById(user.getUserId()).get();
 
 		if (!dbUsr.getUserId().equals(user.getUserId()) || !dbUsr.getPassword().equals(user.getPassword())) {
 
@@ -37,4 +32,19 @@ public class LoginServiceImpl implements ILoginService {
 		return "Succesfully logged in " + user.getUserId() +" " +user.isLoggedIn() ;
 		
 	}
+
+
+	@Override
+	public String logout(String userId) throws Exception {
+		Login dbUsr = loginRepo.findById(userId).get();
+		if(dbUsr.getUserId().equals(userId) && dbUsr.isLoggedIn()==true )  {
+	          
+		       dbUsr.setLoggedIn(false);
+		       loginRepo.save(dbUsr);
+		       return "logout successfully";
+			}
+			throw new Exception("User not logged in");
+	}
+	
+	
 }

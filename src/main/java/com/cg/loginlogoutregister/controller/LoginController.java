@@ -1,6 +1,8 @@
 package com.cg.loginlogoutregister.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +15,6 @@ public class LoginController {
 
 	@Autowired
 	ILoginService loginService;
-	
 	// login service
 	@PostMapping("/login")
 	public String Login(@RequestBody Login user) throws Exception {
@@ -22,5 +23,11 @@ public class LoginController {
 		}
 		return loginService.login(user);
 	}
+    //logout service
+	@GetMapping("/logout/{userId}")
+	public String Logout( @PathVariable("userId")String userId) throws Exception  {
+		return loginService.logout(userId);
+	}
+	
 
 }
