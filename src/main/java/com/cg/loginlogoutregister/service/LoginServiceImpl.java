@@ -18,43 +18,34 @@ public class LoginServiceImpl implements ILoginService {
 
 
 	@Override
-	public String login(LoginEntity user){
-		
-		Optional<LoginEntity> userfield = loginRepo.findById(user.getUserId());
-		LoginEntity dbUsr=null;
-		if (userfield.isPresent()) {
-			dbUsr = userfield.get();
+	public String login(LoginEntity user) {
+		Optional<LoginEntity> dbUsr = loginRepo.findById(user.getUserid());
+		String message = null;
+		if (!dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
+			user.setLoggedIn(true);
+			loginRepo.save(user);
+			message = "Succesfully logged in " + user.getUserid();
+		} else {
+			message = "Already logged in " + user.getUserid();
 		}
-		
-		if (dbUsr==null || !dbUsr.getUserId().equals(user.getUserId()) || !dbUsr.getPassword().equals(user.getPassword())) {
 
-			throw new UserNotFoundException("UserId or Password is invalid");
-		}
-		if(dbUsr.getUserId().equals(user.getUserId()) && dbUsr.getPassword().equals(user.getPassword())) {
-          
-	       user.setLoggedIn(true);
-	       loginRepo.save(user);
-         
-		}
-		return "Succesfully logged in " + user.getUserId() +" " +user.isLoggedIn() ;
-		
+		return message;
 	}
 
-
 	@Override
-	public String logout(String userId)  {
+	public String logout(String userId) {
 		Optional<LoginEntity> userfield = loginRepo.findById(userId);
-		LoginEntity dbUsr=null;
+		LoginEntity dbUsr = null;
 		if (userfield.isPresent()) {
 			dbUsr = userfield.get();
 		}
-		if(dbUsr!=null && dbUsr.getUserId().equals(userId) && dbUsr.isLoggedIn())  {
-	          
-		       dbUsr.setLoggedIn(false);
-		       loginRepo.save(dbUsr);
-		       return "logout successfully";
-			}
-			throw new UserNotFoundException("User not logged in");
+		if (dbUsr != null && dbUsr.getUserid().equals(userId) && dbUsr.isLoggedIn()) {
+
+			dbUsr.setLoggedIn(false);
+			loginRepo.save(dbUsr);
+			return "logout successfully";
+		}
+		throw new UserNotFoundException("User not logged in");
 	}
 	
 	
