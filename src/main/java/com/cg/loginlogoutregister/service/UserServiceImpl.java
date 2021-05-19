@@ -40,26 +40,22 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public UserEntity updateUser(UserEntity user) {
 		UserEntity dbUser = getUser(user);
-		if (dbUser != null) {
-			if (isNullOrEmpty(dbUser.getFirstname())) {
-				dbUser.setFirstname(user.getFirstname());
-			}
-			if (isNullOrEmpty(dbUser.getLastname())) {
-				dbUser.setLastname(user.getLastname());
-			}
-			if (isNullOrEmpty(dbUser.getEmail())) {
-				dbUser.setEmail(user.getEmail());
-			}
-			if (isNullOrEmpty(dbUser.getPassword())) {
-				dbUser.setPassword(user.getPassword());
-			}
-			if (isNullOrEmpty(dbUser.getMobileNumber())) {
-				dbUser.setMobileNumber(user.getMobileNumber());
-			}
-			return regRepo.save(dbUser);
+		if (isNullOrEmpty(dbUser.getFirstname())) {
+			dbUser.setFirstname(user.getFirstname());
 		}
-		return null;
-		
+		if (isNullOrEmpty(dbUser.getLastname())) {
+			dbUser.setLastname(user.getLastname());
+		}
+		if (isNullOrEmpty(dbUser.getEmail())) {
+			dbUser.setEmail(user.getEmail());
+		}
+		if (isNullOrEmpty(dbUser.getPassword())) {
+			dbUser.setPassword(user.getPassword());
+		}
+		if (isNullOrEmpty(dbUser.getMobileNumber())) {
+			dbUser.setMobileNumber(user.getMobileNumber());
+		}
+		return regRepo.save(dbUser);
 	}
 
 	private boolean isNullOrEmpty(String value) {
