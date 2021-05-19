@@ -18,11 +18,22 @@ public class LoginController {
 	ILoginService loginService;
 	// login service
 	@PostMapping("/login")
-	public String Login(@RequestBody LoginEntity user) {
-		if (loginService.login(user)==null) {
-			throw new UserNotFoundException("Userid or Password in null");
+	public String Login(@RequestBody LoginEntity loginentity) {
+		String message=null;
+		if (loginentity.getUserid()==null || loginentity.getPassword()==null || loginentity.getUserid().equals("")||loginentity.getPassword().equals("")) {
+			throw new UserNotFoundException("Userid or Password is invalid");
+		}	
+		UserEntity userfield = userService.findUserByUserId(loginentity.getUserid());
+		if(userfield !=null && userfield.getPassword().equals(loginentity.getPassword())) {
+			message = loginService.login(loginentity);
 		}
-		return loginService.login(user);
+		else if(userfield!=null){
+			throw new UserNotFoundException("Userid or Password is5 invalid");
+		}
+		else  {
+			throw new UserNotFoundException("User Not Registered");
+		}
+		return message;
 	}
     //logout service
 	@GetMapping("/logout/{userId}")
