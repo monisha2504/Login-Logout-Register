@@ -51,7 +51,7 @@ public class UserController {
 //UPDATE
 	
 	@PutMapping("/user/{userid}/update")
-	public UserEntity updateUser(@PathVariable String userid,@Valid @RequestBody UserEntity user){
+	public UserEntity updateUser(@Valid @RequestBody UserEntity user){
 		return regservice.updateUser(user);
 		
 	}
