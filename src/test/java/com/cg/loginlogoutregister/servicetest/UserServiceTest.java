@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 import com.cg.loginlogoutregister.entity.UserEntity;
 import com.cg.loginlogoutregister.exception.UserNotFoundException;
@@ -16,12 +18,21 @@ import com.cg.loginlogoutregister.service.IUserService;
 
 @SpringBootTest
 public class UserServiceTest {
-
+	/*
+	 * Logger
+	 */
+	Logger logger =LogManager.getLogger(UserServiceTest.class);
+/**
+ * AutoWiring the services class to call down the services
+ */
 	@Autowired
 	IUserService regservice;
 	@Autowired
 	IUserRepository regRepo;
-
+/**
+ * Default method
+ * @return user
+ */
 	static UserEntity getMockUser() {
 		UserEntity user = new UserEntity();
 		user.setUserid("userid");
@@ -33,17 +44,24 @@ public class UserServiceTest {
 		return user;
 	}
 
-//Test READ
+/**
+ * Test Case for the method to get the User using userid
+ * 
+ */
 	@Test
 	void findUserByUserId() throws UserNotFoundException {
 		UserEntity user = getMockUser();
 		regservice.createUser(user);
 		UserEntity temp = regservice.findUserByUserId("userid");
+		logger.info("UserEntity");
 		assertEquals(user.toString(), temp.toString());
 
 	}
 
-//Test READ
+/**
+ * Test case for the method to list all users
+ * 
+ */
 	@Test
 	void findAllUsers() throws UserNotFoundException {
 		List<UserEntity> userlist = regservice.getAllUsers();
@@ -53,7 +71,9 @@ public class UserServiceTest {
 		assertEquals(userlist1.size(), userlist.size());
 	}
 
-//Test UPDATE
+/**
+ * Test case for the method to Update all the values
+ */
 	@Test
 	void updateUser() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
@@ -65,10 +85,14 @@ public class UserServiceTest {
 		user.setMobileNumber("9962440531");
 		regservice.createUser(user);
 		UserEntity temp = regservice.updateUser(user);
+		logger.info("UserEntity");
 		assertEquals(user.toString(), temp.toString());
 	}
 
-//Test DELETE
+/**
+ * Test case to delete the user using userid
+ * 
+ */
 	@Test
 	void deleteUserByUserId() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
@@ -80,6 +104,7 @@ public class UserServiceTest {
 		user.setMobileNumber("9962440531");
 		regservice.createUser(user);
 		UserEntity temp = regservice.deleteUserByUserId("Monisha");
+		logger.info("UserEntity");
 		assertEquals(user.toString(), temp.toString());
 	}
 

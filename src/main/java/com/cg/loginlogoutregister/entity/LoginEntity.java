@@ -19,11 +19,9 @@ import lombok.ToString;
 @Table(name = "login")
 public class LoginEntity {
 
-	@GeneratedValue
-	private int id;
 	@Id
 	@NotEmpty(message="Please enter your userid")
-	private String userId;
+	private String userid;
 	@NotEmpty(message="Please enter your password")
 	private String password;
     private boolean isLoggedIn = false;

@@ -9,6 +9,9 @@ import com.cg.loginlogoutregister.entity.UserErrorMessage;
 
 @ControllerAdvice
 public class UserExceptionHandler {
+	/*
+	 * UserNotFoundException
+	 */
 	@ExceptionHandler
 	public ResponseEntity<UserErrorMessage> handleExeption(UserNotFoundException exception) {
 		UserErrorMessage error = new UserErrorMessage();
@@ -18,7 +21,9 @@ public class UserExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 
 	}
-
+/*
+ * GenericType Exception Handler
+ */
 	@ExceptionHandler
 	public ResponseEntity<UserErrorMessage> handleException(Exception exception) {
 		UserErrorMessage error = new UserErrorMessage();

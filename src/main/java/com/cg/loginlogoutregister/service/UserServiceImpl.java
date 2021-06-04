@@ -15,7 +15,10 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	IUserRepository regRepo;
-
+/**
+ * creating a user in database
+ * 
+ */
 	@Override
 	public UserEntity createUser(UserEntity user){
 		return regRepo.save(user);

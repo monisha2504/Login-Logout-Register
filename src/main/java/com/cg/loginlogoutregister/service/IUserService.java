@@ -11,7 +11,11 @@ public interface IUserService {
 	public UserEntity findUserByUserId(String userid);
 
 	public List<UserEntity> getAllUsers();
-
+	/**
+	 * creating a user in database
+	 * @param user
+	 * @return
+	 */
 	public UserEntity createUser(UserEntity user);
 
 	public UserEntity updateUser(UserEntity user);
