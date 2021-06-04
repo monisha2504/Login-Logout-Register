@@ -8,13 +8,21 @@ import com.cg.loginlogoutregister.entity.UserEntity;
 
 @Service
 public interface IUserService {
+	/**
+	 * Retrieves user records with userid
+	 * @param userid
+	 * @return UserEntity
+	 */
 	public UserEntity findUserByUserId(String userid);
-
+/**
+ * Retrieves user
+ * @return
+ */
 	public List<UserEntity> getAllUsers();
 	/**
-	 * creating a user in database
-	 * @param user
-	 * @return
+	 * Creates user record in the entity table
+	 * @param UserEntity
+	 * @return UserEntity
 	 */
 	public UserEntity createUser(UserEntity user);
 
