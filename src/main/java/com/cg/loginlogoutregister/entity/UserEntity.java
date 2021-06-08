@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "RegisterUser")
+@Table(name = "Registeruser")
 public class UserEntity {
 	/**
 	 * UserId Validation
@@ -52,7 +52,7 @@ public class UserEntity {
 	 */
 	@NotEmpty(message="Please Enter your LastName")
 	@Pattern(regexp = "[A-Za-z]+",message="LastName is Invalid")
-	@Size(min = 1, max = 10, message = "Lastnmae should have atleast 7 characters not less than 10 characters")
+	@Size(min = 1, max = 10, message = "Lastname should have atleast 7 characters not less than 10 characters")
 	private String lastname;
 	
 	/**
@@ -69,5 +69,6 @@ public class UserEntity {
 	@Email
 	@NotEmpty(message="Please Enter Your Email Id")
 	private String email;
+	private boolean isAdmin=false;
 
 }

@@ -3,10 +3,12 @@ package com.cg.loginlogoutregister.controller;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.loginlogoutregister.entity.LoginEntity;
@@ -14,8 +16,9 @@ import com.cg.loginlogoutregister.entity.UserEntity;
 import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.service.ILoginService;
 import com.cg.loginlogoutregister.service.IUserService;
-
+@CrossOrigin
 @RestController
+@RequestMapping("/api")
 public class LoginController {
 	/*
 	 * Logger
@@ -42,7 +45,7 @@ public class LoginController {
 			message = loginService.login(loginentity);
 		}
 		else if(userfield!=null){
-			throw new UserNotFoundException("Userid or Password is5 invalid");
+			throw new UserNotFoundException("Userid or Password is invalid");
 		}
 		else  {
 			throw new UserNotFoundException("User Not Registered");
@@ -52,10 +55,10 @@ public class LoginController {
     /*
      * performs logout operation
      */
-	@GetMapping("/logout/{userId}")
-	public String Logout( @PathVariable("userId")String userId){
+	@GetMapping("/logout/{userid}")
+	public String Logout( @PathVariable("userid")String userid){
 		logger.info("logout Sucessfully");
-		return loginService.logout(userId);
+		return loginService.logout(userid);
 	}
 
 }

@@ -33,13 +33,13 @@ public class LoginServiceImpl implements ILoginService {
 	}
 
 	@Override
-	public String logout(String userId) {
-		Optional<LoginEntity> userfield = loginRepo.findById(userId);
+	public String logout(String userid) {
+		Optional<LoginEntity> userfield = loginRepo.findById(userid);
 		LoginEntity dbUsr = null;
 		if (userfield.isPresent()) {
 			dbUsr = userfield.get();
 		}
-		if (dbUsr != null && dbUsr.getUserid().equals(userId) && dbUsr.isLoggedIn()) {
+		if (dbUsr != null && dbUsr.getUserid().equals(userid) && dbUsr.isLoggedIn()) {
 
 			dbUsr.setLoggedIn(false);
 			loginRepo.save(dbUsr);
