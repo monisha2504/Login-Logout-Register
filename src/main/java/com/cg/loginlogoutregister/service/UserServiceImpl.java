@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.cg.loginlogoutregister.entity.UserEntity;
+import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.repository.IUserRepository;
 
 @Service
@@ -21,6 +22,11 @@ public class UserServiceImpl implements IUserService {
  */
 	@Override
 	public UserEntity createUser(UserEntity user){
+		
+		Optional<UserEntity> optional =regRepo.findById(user.getUserid());
+		if(optional.isPresent()) {
+			throw new UserNotFoundException("UserId already exists");
+		}
 		return regRepo.save(user);
 
 	}

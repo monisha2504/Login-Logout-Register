@@ -69,6 +69,6 @@ public class UserEntity {
 	@Email
 	@NotEmpty(message="Please Enter Your Email Id")
 	private String email;
-	private boolean isAdmin=false;
+	private String userRole;
 
 }

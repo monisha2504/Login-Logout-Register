@@ -41,7 +41,10 @@ public class LoginController {
 			throw new UserNotFoundException("Userid or Password is invalid");
 		}	
 		UserEntity userfield = userService.findUserByUserId(loginentity.getUserid());
-		if(userfield !=null && userfield.getPassword().equals(loginentity.getPassword())) {
+		if(userfield!=null && !loginentity.getUserRole().equals(userfield.getUserRole())) {
+			throw new UserNotFoundException("You cannot login as "+loginentity.getUserRole());
+		}
+		else if(userfield !=null && userfield.getPassword().equals(loginentity.getPassword())) {
 			message = loginService.login(loginentity);
 		}
 		else if(userfield!=null){
