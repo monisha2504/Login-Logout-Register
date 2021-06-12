@@ -1,10 +1,14 @@
 package com.cg.loginlogoutregister.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -26,10 +30,11 @@ public class UserEntity {
 	 * UserId Validation
 	 */
 	@Id
+	@NotNull
 	@NotEmpty(message="Please Enter your UserId")
 	@Pattern(regexp = "[A-Za-z]+",message="UserId is Invalid")
 	@Size(min = 4, message = "Userid is should have atleast 4 character ")
-	private String userid;
+	private String userId;
 	
 	/*
 	 * Password Validation
@@ -45,7 +50,7 @@ public class UserEntity {
 	@NotEmpty(message="Please Enter your FirstName")
 	@Pattern(regexp = "[A-Za-z]+",message="FirstName is Invalid")
 	@Size(min = 2, max = 10, message = "Firstname should have atleast 7 characters not less than 10 characters")
-	private String firstname;
+	private String firstName;
 	
 	/**
 	 * LastName Validation
@@ -53,7 +58,7 @@ public class UserEntity {
 	@NotEmpty(message="Please Enter your LastName")
 	@Pattern(regexp = "[A-Za-z]+",message="LastName is Invalid")
 	@Size(min = 1, max = 10, message = "Lastname should have atleast 7 characters not less than 10 characters")
-	private String lastname;
+	private String lastName;
 	
 	/**
 	 * MobileNumber Validation
@@ -70,5 +75,8 @@ public class UserEntity {
 	@NotEmpty(message="Please Enter Your Email Id")
 	private String email;
 	private String userRole;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="login_fk")
+	private LoginEntity login;
 
 }

@@ -5,7 +5,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.loginlogoutregister.dto.LoginDto;
 import com.cg.loginlogoutregister.entity.LoginEntity;
+import com.cg.loginlogoutregister.exception.InvalidCredentialsException;
 import com.cg.loginlogoutregister.exception.UserNotFoundException;
 import com.cg.loginlogoutregister.repository.ILoginRepository;
 
@@ -18,20 +20,27 @@ public class LoginServiceImpl implements ILoginService {
 
 
 	@Override
-	public String login(LoginEntity user) {
-		Optional<LoginEntity> dbUsr = loginRepo.findById(user.getUserid());
-		String message = null;
-		if (!dbUsr.isPresent() || !dbUsr.get().isLoggedIn()) {
-			user.setLoggedIn(true);
-			loginRepo.save(user);
-			message = "Succesfully logged in " + user.getUserid();
-		} else {
-			message = "Already logged in " + user.getUserid();
+	public LoginDto login(LoginEntity user)throws UserNotFoundException,InvalidCredentialsException {
+		Optional<LoginEntity> dbUsr = loginRepo.findById(user.getUserId());
+		if (!dbUsr.isPresent() ) {
+			throw new UserNotFoundException("User not fount with a given id :"+user.getUserId());
 		}
-
-		return message;
+		LoginEntity login = dbUsr.get();
+		LoginDto loginDto=new LoginDto();
+		if(user.getPassword().equals(login.getPassword()) && user.getUserRole().equals(login.getUserRole())) {
+			login.setLoggedIn(true);
+			loginRepo.save(login);	
+			loginDto.setUserId(login.getUserId());
+			loginDto.setUserRole(login.getUserRole());
+			loginDto.setLoggedIn(true);
+		}
+		else {
+			throw new InvalidCredentialsException("UserId or Password is Invalid");
+		}
+		return loginDto;
+		
 	}
-
+	
 	@Override
 	public String logout(String userid) {
 		Optional<LoginEntity> userfield = loginRepo.findById(userid);
@@ -39,7 +48,7 @@ public class LoginServiceImpl implements ILoginService {
 		if (userfield.isPresent()) {
 			dbUsr = userfield.get();
 		}
-		if (dbUsr != null && dbUsr.getUserid().equals(userid) && dbUsr.isLoggedIn()) {
+		if (dbUsr != null && dbUsr.getUserId().equals(userid) && dbUsr.isLoggedIn()) {
 
 			dbUsr.setLoggedIn(false);
 			loginRepo.save(dbUsr);

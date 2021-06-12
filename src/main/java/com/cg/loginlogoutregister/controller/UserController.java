@@ -46,13 +46,13 @@ public class UserController {
 	 */
 
 	
-	@GetMapping("/users/{userid}")
-	public UserEntity findUserByUserId(@PathVariable String userid){
-		if (regservice.findUserByUserId(userid) == null) {
+	@GetMapping("/users/{userId}")
+	public UserEntity findUserByUserId(@PathVariable String userId){
+		if (regservice.findUserByUserId(userId) == null) {
 			throw new UserNotFoundException("User not found with this userid ");
 		}
-		logger.info("Getting User by UserId:"+ userid);
-		return regservice.findUserByUserId(userid);
+		logger.info("Getting User by UserId:"+ userId);
+		return regservice.findUserByUserId(userId);
 		
 		
 		 
@@ -84,12 +84,12 @@ public class UserController {
 	 * userid and redirects to the user service
 	 */
 	
-	@PutMapping("/users/update/{userid}")
-	public UserEntity updateUser(@PathVariable String userid,@Valid @RequestBody UserEntity user){
-		if (regservice.findUserByUserId(userid)==null) {
+	@PutMapping("/users/update/{userId}")
+	public UserEntity updateUser(@PathVariable String userId,@Valid @RequestBody UserEntity user){
+		if (regservice.findUserByUserId(userId)==null) {
 			throw new UserNotFoundException("User not found with this Userid" );
 		}
-		logger.info("Updating the User"+ userid);
+		logger.info("Updating the User"+ userId);
 		return regservice.updateUser(user);
 		
 	}
@@ -98,12 +98,12 @@ public class UserController {
 	 * userid and redirects to the user service
 	 */
 	
-	@DeleteMapping("/users/{userid}")
-	public UserEntity deleteUserByUserId(@PathVariable String userid){
-		if(regservice.findUserByUserId(userid)==null){
+	@DeleteMapping("/users/{userId}")
+	public UserEntity deleteUserByUserId(@PathVariable String userId){
+		if(regservice.findUserByUserId(userId)==null){
 		throw new UserNotFoundException("User not found with Userid");	
 		}
-		logger.info("Deleting the User by Userid"+ userid);
-		return regservice.deleteUserByUserId(userid);
+		logger.info("Deleting the User by Userid"+ userId);
+		return regservice.deleteUserByUserId(userId);
 	}
 }

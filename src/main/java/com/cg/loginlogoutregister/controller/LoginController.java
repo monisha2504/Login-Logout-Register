@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.loginlogoutregister.dto.LoginDto;
 import com.cg.loginlogoutregister.entity.LoginEntity;
 import com.cg.loginlogoutregister.entity.UserEntity;
 import com.cg.loginlogoutregister.exception.UserNotFoundException;
@@ -35,33 +36,17 @@ public class LoginController {
 	 *  performs Login operation
 	 */
 	@PostMapping("/login")
-	public String Login(@RequestBody LoginEntity loginentity) {
-		String message=null;
-		if (loginentity.getUserid()==null || loginentity.getPassword()==null || loginentity.getUserid().equals("")||loginentity.getPassword().equals("")) {
-			throw new UserNotFoundException("Userid or Password is invalid");
-		}	
-		UserEntity userfield = userService.findUserByUserId(loginentity.getUserid());
-		if(userfield!=null && !loginentity.getUserRole().equals(userfield.getUserRole())) {
-			throw new UserNotFoundException("You cannot login as "+loginentity.getUserRole());
-		}
-		else if(userfield !=null && userfield.getPassword().equals(loginentity.getPassword())) {
-			message = loginService.login(loginentity);
-		}
-		else if(userfield!=null){
-			throw new UserNotFoundException("Userid or Password is invalid");
-		}
-		else  {
-			throw new UserNotFoundException("User Not Registered");
-		}
-		return message;
+	public LoginDto Login(@RequestBody LoginEntity loginentity) {
+		logger.info("logged in Successfully ");
+		return loginService.login(loginentity);
 	}
     /*
      * performs logout operation
      */
-	@GetMapping("/logout/{userid}")
-	public String Logout( @PathVariable("userid")String userid){
+	@GetMapping("/logout/{userId}")
+	public String Logout( @PathVariable("userId")String userId){
 		logger.info("logout Sucessfully");
-		return loginService.logout(userid);
+		return loginService.logout(userId);
 	}
 
 }

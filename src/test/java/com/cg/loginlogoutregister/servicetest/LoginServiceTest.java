@@ -40,12 +40,12 @@ class LoginServiceTest {
 	@Test
 	void testValidateLoginWithValidUserIdAndPassword() throws UserNotFoundException {
 		LoginEntity user = new LoginEntity();
-		user.setUserid("admin");
+		user.setUserId("admin");
 		user.setPassword("admin@1234");
 		loginService.login(user);
-		LoginEntity dbUsr = loginRepo.findById(user.getUserid()).get();
+		LoginEntity dbUsr = loginRepo.findById(user.getUserId()).get();
 		logger.info("LoginEntity");
-		assertEquals(user.getUserid(), dbUsr.getUserid());
+		assertEquals(user.getUserId(), dbUsr.getUserId());
 		assertEquals(user.getPassword(), dbUsr.getPassword());	    
 		}
 

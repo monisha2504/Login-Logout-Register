@@ -35,9 +35,9 @@ public class UserServiceTest {
  */
 	static UserEntity getMockUser() {
 		UserEntity user = new UserEntity();
-		user.setUserid("userid");
-		user.setFirstname("firstname");
-		user.setLastname("Lastname");
+		user.setUserId("userid");
+		user.setFirstName("firstname");
+		user.setLastName("Lastname");
 		user.setEmail("abc353@gmail.com");
 		user.setPassword("M0n1sha04");
 		user.setMobileNumber("9840128654");
@@ -77,9 +77,9 @@ public class UserServiceTest {
 	@Test
 	void updateUser() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("Monisha");
-		user.setFirstname("Monisha");
-		user.setLastname("sekar");
+		user.setUserId("Monisha");
+		user.setFirstName("Monisha");
+		user.setLastName("sekar");
 		user.setEmail("monishasekar25@yaho0.com");
 		user.setPassword("M0n1sha07");
 		user.setMobileNumber("9962440531");
@@ -96,9 +96,9 @@ public class UserServiceTest {
 	@Test
 	void deleteUserByUserId() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("Monisha");
-		user.setFirstname("Monisha");
-		user.setLastname("sekar");
+		user.setUserId("Monisha");
+		user.setFirstName("Monisha");
+		user.setLastName("sekar");
 		user.setEmail("monishasekar25@yahoo.com");
 		user.setPassword("M0n1sha07");
 		user.setMobileNumber("9962440531");

@@ -37,9 +37,9 @@ public class UserServiceMockitoTest {
 
 	void findUserByUserId() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("apple");
-		user.setFirstname("firstname");
-		user.setLastname("Lastname");
+		user.setUserId("apple");
+		user.setFirstName("firstname");
+		user.setLastName("Lastname");
 		user.setEmail("monishasekar353@gmail.com");
 		user.setPassword("M0n1");
 		user.setMobileNumber("9840128654");
@@ -53,9 +53,9 @@ public class UserServiceMockitoTest {
 
 	void findAllUsers() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("mango");
-		user.setFirstname("firstname");
-		user.setLastname("Lastname");
+		user.setUserId("mango");
+		user.setFirstName("firstname");
+		user.setLastName("Lastname");
 		user.setEmail("monishasekar353@gmail.com");
 		user.setPassword("M0n1");
 		user.setMobileNumber("9840128654");
@@ -71,9 +71,9 @@ public class UserServiceMockitoTest {
 
 	void updateUser() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("useridd");
-		user.setFirstname("newFirstname");
-		user.setLastname("newLastname");
+		user.setUserId("useridd");
+		user.setFirstName("newFirstname");
+		user.setLastName("newLastname");
 		user.setEmail("monishasekar25@gmail.com");
 		user.setPassword("M0n1");
 		user.setMobileNumber("9962440531");
@@ -87,9 +87,9 @@ public class UserServiceMockitoTest {
 
 	void deleteUserByUserId() throws UserNotFoundException {
 		UserEntity user = new UserEntity();
-		user.setUserid("useridd");
-		user.setFirstname("newFirstname");
-		user.setLastname("newLastname");
+		user.setUserId("useridd");
+		user.setFirstName("newFirstname");
+		user.setLastName("newLastname");
 		user.setEmail("monishasekar25@gmail.com");
 		user.setPassword("M0n1");
 		user.setMobileNumber("9962440531");

@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public UserEntity createUser(UserEntity user){
 		
-		Optional<UserEntity> optional =regRepo.findById(user.getUserid());
+		Optional<UserEntity> optional =regRepo.findById(user.getUserId());
 		if(optional.isPresent()) {
 			throw new UserNotFoundException("UserId already exists");
 		}
@@ -32,8 +32,8 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public UserEntity findUserByUserId(String userid) {
-		Optional<UserEntity> optional = regRepo.findById(userid);
+	public UserEntity findUserByUserId(String userId) {
+		Optional<UserEntity> optional = regRepo.findById(userId);
 		if (!optional.isPresent()) {
 			return null;
 		}
@@ -49,11 +49,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public UserEntity updateUser(UserEntity user) {
 		UserEntity dbUser = getUser(user);
-		if (isNullOrEmpty(dbUser.getFirstname())) {
-			dbUser.setFirstname(user.getFirstname());
+		if (isNullOrEmpty(dbUser.getFirstName())) {
+			dbUser.setFirstName(user.getFirstName());
 		}
-		if (isNullOrEmpty(dbUser.getLastname())) {
-			dbUser.setLastname(user.getLastname());
+		if (isNullOrEmpty(dbUser.getLastName())) {
+			dbUser.setLastName(user.getLastName());
 		}
 		if (isNullOrEmpty(dbUser.getEmail())) {
 			dbUser.setEmail(user.getEmail());
@@ -72,7 +72,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	private UserEntity getUser(UserEntity user) {
-		Optional<UserEntity> userfield = regRepo.findById(user.getUserid());
+		Optional<UserEntity> userfield = regRepo.findById(user.getUserId());
 		UserEntity dbUser=null;
 		if (userfield.isPresent()) {
 			dbUser = userfield.get();
@@ -81,12 +81,12 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public UserEntity deleteUserByUserId(String userid) {
-		Optional<UserEntity> optional = regRepo.findById(userid);
+	public UserEntity deleteUserByUserId(String userId) {
+		Optional<UserEntity> optional = regRepo.findById(userId);
 		if (!optional.isPresent()) {
 			return null;
 		}
-		regRepo.deleteById(userid);
+		regRepo.deleteById(userId);
 		return optional.get();
 	}
 }
