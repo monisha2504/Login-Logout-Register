@@ -17,13 +17,14 @@ public class LoginServiceImpl implements ILoginService {
 	@Autowired
 	ILoginRepository loginRepo;
 	
+	
 
 
 	@Override
 	public LoginDto login(LoginEntity user)throws UserNotFoundException,InvalidCredentialsException {
 		Optional<LoginEntity> dbUsr = loginRepo.findById(user.getUserId());
 		if (!dbUsr.isPresent() ) {
-			throw new UserNotFoundException("User not fount with a given id :"+user.getUserId());
+			throw new UserNotFoundException("User not found with a given id :"+user.getUserId());
 		}
 		LoginEntity login = dbUsr.get();
 		LoginDto loginDto=new LoginDto();
